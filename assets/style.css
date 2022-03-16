@@ -1,0 +1,37 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+nav {
+    text-align: left;
+    margin: 30px 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+.wrapper {
+    padding: 30px 20px 0 20px;
+}
+
+.btn {
+    border: none;
+    background-color:indigo;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    font-weight: lighter;
+    margin: 10px;
+    padding: 10px 15px;
+}
+
+nav a:hover {
+    color: indigo;
+}
+
+.btn:hover {
+    opacity: .7;
+}
