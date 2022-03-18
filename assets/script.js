@@ -1,14 +1,31 @@
 var timerEl = document.querySelector('#countdown');
+
 var timeLeft = 80;
 var timeInterval = setInterval(function() {
     timerEl.textContent = "Time Left: " + timeLeft;
     timeLeft--;
+
     if (timeLeft === -1) {
         clearInterval(timeInterval);
         endQuiz();
     }
 }, 1000);
 
+var tenLess = function() {
+    timeLeft -= 10;
+};
+
+var resultOne = function() {
+    var correct = document.getElementById('result');
+    correct.className = "result";
+    correct.textContent = "Correct!";
+};
+
+var resultTwo = function() {
+    var incorrect = document.getElementById('result');
+    incorrect.className = "result";
+    incorrect.textContent = "Incorrect!";
+};
 
 var startQuiz = function() {
     var page =document.getElementById('main-page');
@@ -24,7 +41,7 @@ var startQuiz = function() {
 
 var firstQues = function() {
 
-    var firstAsk = document.getElementById('first');
+    var firstAsk = document.getElementById('next');
     firstAsk.className = "wrapper";
     firstAsk.textContent = "What type of special character in JavaScript should surround an array?";
 
@@ -48,14 +65,24 @@ var firstQues = function() {
     fourthAnsw.textContent = "Less than/greater than signs <>";
     firstAsk.appendChild(fourthAnsw); 
 
-    firstAnsw.addEventListener("click", nextQues);
-    secAnsw.addEventListener("click", nextQues);
-    thirdAnsw.addEventListener("click", nextQues);
-    fourthAnsw.addEventListener("click", nextQues);
+    firstAnsw.addEventListener("click", secondQues);
+    firstAnsw.addEventListener("click", tenLess);
+    firstAnsw.addEventListener("click", resultTwo);
+
+    secAnsw.addEventListener("click", secondQues);
+    secAnsw.addEventListener("click", tenLess);
+    secAnsw.addEventListener("click", resultTwo);
+
+    thirdAnsw.addEventListener("click", secondQues);
+    thirdAnsw.addEventListener("click", resultOne);
+
+    fourthAnsw.addEventListener("click", secondQues);
+    fourthAnsw.addEventListener("click", tenLess);
+    fourthAnsw.addEventListener("click", resultTwo);
 };
 
 var secondQues = function() {
-    var secondAsk = document.getElementById('second');
+    var secondAsk = document.getElementById('next');
     secondAsk.className = "wrapper";
     secondAsk.textContent = "What git function allows you to make a new branch in the terminal and go to that branch at the same time?";
 
@@ -79,14 +106,27 @@ var secondQues = function() {
     fourthAnswB.textContent = "git checkout -b";
     secondAsk.appendChild(fourthAnswB); 
 
-    firstAnswB.addEventListener("click", nextQuesTwo);
-    secAnswB.addEventListener("click", nextQuesTwo);
-    thirdAnswB.addEventListener("click", nextQuesTwo);
-    fourthAnswB.addEventListener("click", nextQuesTwo);
+    firstAnswB.addEventListener("click", thirdQues);
+    firstAnswB.addEventListener("click", tenLess);
+    firstAnswB.addEventListener("click", resultTwo);
+
+
+    secAnswB.addEventListener("click", thirdQues);
+    secAnswB.addEventListener("click", tenLess);
+    secAnswB.addEventListener("click", resultTwo);
+
+
+    thirdAnswB.addEventListener("click", thirdQues);
+    thirdAnswB.addEventListener("click", tenLess);
+    thirdAnswB.addEventListener("click", resultTwo);
+
+
+    fourthAnswB.addEventListener("click", thirdQues);
+    fourthAnswB.addEventListener("click", resultOne);
 };
 
 var thirdQues = function() {
-    var thirdAsk = document.getElementById('third');
+    var thirdAsk = document.getElementById('next');
     thirdAsk.className = "wrapper";
     thirdAsk.textContent = "What JavaScript function allows you to iterate through a block of code a set number of times?";
 
@@ -110,14 +150,24 @@ var thirdQues = function() {
     fourthAnswC.textContent = "Math.random() function";
     thirdAsk.appendChild(fourthAnswC); 
 
-    firstAnswC.addEventListener("click", nextQuesThree);
-    secAnswC.addEventListener("click", nextQuesThree);
-    thirdAnswC.addEventListener("click", nextQuesThree);
-    fourthAnswC.addEventListener("click", nextQuesThree);
+    firstAnswC.addEventListener("click", fourthQues);
+    firstAnswC.addEventListener("click", tenLess);
+    firstAnswC.addEventListener("click", resultTwo);
+
+    secAnswC.addEventListener("click", fourthQues);
+    secAnswC.addEventListener("click", resultOne);
+
+    thirdAnswC.addEventListener("click", fourthQues);
+    thirdAnswC.addEventListener("click", tenLess);
+    thirdAnswC.addEventListener("click", resultTwo);
+
+    fourthAnswC.addEventListener("click", fourthQues);
+    fourthAnswC.addEventListener("click", tenLess);
+    fourthAnswC.addEventListener("click", resultTwo);
 };
 
 var fourthQues = function() {
-    var fourthAsk = document.getElementById('fourth');
+    var fourthAsk = document.getElementById('next');
     fourthAsk.className = "wrapper";
     fourthAsk.textContent = "What method is JavaScript is used for testing purposes to make sure code is running as intended?";
 
@@ -141,28 +191,44 @@ var fourthQues = function() {
     fourthAnswD.textContent = "getElementById()";
     fourthAsk.appendChild(fourthAnswD); 
 
-    firstAnswD.addEventListener("click", nextPage);
-    secAnswD.addEventListener("click", nextPage, timeLeft -10);
-    thirdAnswD.addEventListener("click", nextPage);
-    fourthAnswD.addEventListener("click", nextPage);
+    firstAnswD.addEventListener("click", tenLess);
+    firstAnswD.addEventListener("click", endQuiz);
+    firstAnswD.addEventListener("click", resultTwo);
+
+    secAnswD.addEventListener("click", endQuiz);
+    secAnswD.addEventListener("click", resultOne);
+
+    thirdAnswD.addEventListener("click", tenLess);
+    thirdAnswD.addEventListener("click", endQuiz);
+    thirdAnswD.addEventListener("click", resultTwo);
+
+    fourthAnswD.addEventListener("click", tenLess);
+    fourthAnswD.addEventListener("click", endQuiz);
+    fourthAnswD.addEventListener("click", resultTwo);
 };
 
 var endQuiz = function() {
     clearInterval(timeInterval);
 
-    var lastPage = document.getElementById('end');
+    var lastPage = document.getElementById('next');
     lastPage.className = "wrapper";
-    lastPage.textContent = "The quiz is over! Your score is " + timeLeft + ".";
+    lastPage.textContent = "The quiz is over! Your score is " + timeLeft + ". Enter your initials to save your score!";
 
-    var highScore = document.createElement("button");
-    highScore.className = "button";
-    highScore.textContent = "High Scores";
-    lastPage.appendChild(highScore);
+    var initials = document.createElement("input");
+    initials.setAttribute("type", "text");
+    initials.setAttribute("id", "text-box");
+    initials.className = "text-box";
+    lastPage.appendChild(initials);
 
-    var returnHome = document.createElement("button");
-    returnHome.className = "button";
-    returnHome.textContent = "Start Over";
-    lastPage.appendChild(returnHome);
+    var submitScore = document.createElement("button");
+    submitScore.className = "button";
+    submitScore.textContent = "Submit Score";
+    lastPage.appendChild(submitScore);
+
+    // var returnHome = document.createElement("button");
+    // returnHome.className = "button";
+    // returnHome.textContent = "Start Over";
+    // lastPage.appendChild(returnHome);
 
     // returnHome.addEventListener("click", )
 };
@@ -170,65 +236,12 @@ var endQuiz = function() {
 
 
 
-var nextQues = function() {
-    var nextOne =document.getElementById('first', 'third', 'fourth');
 
-    if (nextOne.style.display === 'none') {
-        nextOne.style.display = 'block';
-    } else {
-        nextOne.style.display = 'none';
-    }
-    console.log("it did the thing");
-
-    secondQues();
-};
-
-var nextQuesTwo = function() {
-    var nextOneB =document.getElementById('second', 'first', 'fourth');
-
-    if (nextOneB.style.display === 'none') {
-        nextOneB.style.display = 'block';
-    } else {
-        nextOneB.style.display = 'none';
-    }
-    console.log("it did the thing");
-
-    thirdQues();
-};
-
-var nextQuesThree = function() {
-    var nextOneC =document.getElementById('third', 'first', 'second');
-
-    if (nextOneC.style.display === 'none') {
-        nextOneC.style.display = 'block';
-    } else {
-        nextOneC.style.display = 'none';
-    }
-    console.log("it did the thing");
-
-    fourthQues();
-};
-
-var nextPage = function() {
-    var endPage =document.getElementById('fourth', 'third', 'second', 'first');
-
-    if (endPage.style.display === 'none') {
-        endPage.style.display = 'block';
-    } else {
-        endPage.style.display = 'none';
-    }
-    console.log("it did the thing");
-
-    endQuiz();
-
-};
-
-// subtract 10 seconds for each wrong answer
-// add Correct or Incorrect after questions
-// High score text box to local storage
-// Connect high score button to HTML page
+// High score text box and submit button
+// Connect high score to localstorage
+// Start over button
 
 var startBtn = document.querySelector("#start");
 
-startBtn.addEventListener("click", setInterval);
+// startBtn.addEventListener("click", setInterval);
 startBtn.addEventListener("click", startQuiz);
