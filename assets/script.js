@@ -11,6 +11,7 @@ var timeInterval = setInterval(function() {
     }
 }, 1000);
 
+
 var tenLess = function() {
     timeLeft -= 10;
 };
@@ -225,23 +226,27 @@ var endQuiz = function() {
     submitScore.textContent = "Submit Score";
     lastPage.appendChild(submitScore);
 
-    // var returnHome = document.createElement("button");
-    // returnHome.className = "button";
-    // returnHome.textContent = "Start Over";
-    // lastPage.appendChild(returnHome);
+    var saveScore = function() {
+        localStorage.setItem("timeLeft", JSON.stringify(timeLeft));
+        localStorage.setItem("initials.value", JSON.stringify(initials.value));
+    };
 
-    // returnHome.addEventListener("click", )
+    var scoresB = function() {
+        scoreEl.textContent = JSON.parse(window.localStorage.getItem('timeLeft'));
+        initialsEl.textContent = JSON.parse(window.localStorage.getItem('initials.value'));
+        console.log("here i am")
+    };    
+    
+    submitScore.addEventListener("click", loadPage);
+    submitScore.addEventListener("click", saveScore);
+
+    saveScore();
 };
 
-
-
-
-
-// High score text box and submit button
-// Connect high score to localstorage
-// Start over button
+var loadPage = function () {
+    window.location = "highscores.html";
+};
 
 var startBtn = document.querySelector("#start");
 
-// startBtn.addEventListener("click", setInterval);
 startBtn.addEventListener("click", startQuiz);

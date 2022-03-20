@@ -53,6 +53,14 @@ nav div {
     font-style: italic;
 }
 
+.scores {
+    display: inline-block;
+}
+
+.initials {
+    display: inline-block;
+}
+
 nav a:hover {
     color: indigo;
 }
